@@ -43,5 +43,3 @@ class Player(pygame.sprite.Sprite):
         if keys[pygame.K_RIGHT]:
             if self.rect.right < width:
                 self.rect.left += 5
-
-
