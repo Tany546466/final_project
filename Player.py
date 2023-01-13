@@ -20,6 +20,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.top = height - 200
         self.is_jumping = False
         self.jump_count = 10
+        self.health = 5
 
 
     def jump(self):
@@ -37,9 +38,9 @@ class Player(pygame.sprite.Sprite):
 
     def update(self):
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_LEFT]:
+        '''if keys[pygame.K_LEFT]:
             if self.rect.left > 0:
                 self.rect.left -= 5
         if keys[pygame.K_RIGHT]:
             if self.rect.right < width:
-                self.rect.left += 5
+                self.rect.left += 5'''
