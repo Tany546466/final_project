@@ -1,8 +1,6 @@
 import pygame
-
 width = 1000
 height = 1000
-
 win = pygame.display.set_mode((width, height))
 
 class Enemy(pygame.sprite.Sprite):
@@ -15,6 +13,15 @@ class Enemy(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (100, 100))
         self.rect = self.image.get_rect()
 
+        def update(self):
+            if self.rect.left < WIDTH:
+                self.rect.x += 5
+            if self.rect.right > WIDTH:
+                self.rect.left = 0
+                self.rect.x -= 5
+
+        self.rect.center=(800,900)
+        self.rect.center=(900,850)
 
 
 

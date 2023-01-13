@@ -22,6 +22,7 @@ class Player(pygame.sprite.Sprite):
         self.jump_count = 10
 
 
+
     def jump(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE]:
@@ -44,4 +45,6 @@ class Player(pygame.sprite.Sprite):
             if self.rect.right < width:
                 self.rect.left += 5
 
+
+        pygame.display.update()
 

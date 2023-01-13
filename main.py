@@ -1,18 +1,25 @@
 import pygame
 import random
-
 import Enemy
 import Player
 
+
 pygame.init()
+
+
 
 width = 1000
 height = 1000
+white = (255, 255, 255)
 
+
+
+width = 1000
+height = 1000
+green = (0, 255, 0)
 
 win = pygame.display.set_mode((width, height))
 
-white = (255, 255, 255)
 
 FPS = 60
 clock = pygame.time.Clock()
@@ -32,7 +39,13 @@ while True:
             exit()
 
     win.fill(white)
-    # Рисуем все спрайты, который есть в группе
+    pygame.draw.rect(win, green, (200, 680, 100, 100))
+    pygame.draw.rect(win, green, (300, 680, 100, 100))
+    pygame.display.update()
+
+
+
+
     all_sprites.draw(win)
     enemy_sprites.draw(win)
     player.jump()
