@@ -46,5 +46,5 @@ class Player(pygame.sprite.Sprite):
                 self.rect.left += 5
 
 
-        pygame.display.update()
 
+        pygame.display.update()
