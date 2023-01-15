@@ -12,6 +12,10 @@ class Enemy(pygame.sprite.Sprite):
         self.image.set_colorkey(colorkey)
         self.image = pygame.transform.scale(self.image, (100, 100))
         self.rect = self.image.get_rect()
+        self.rect.top = height - 200
+        self.rect.left = width - self.rect.width
+        self.speed = 5
+
 
         def update(self):
             if self.rect.left < WIDTH:
@@ -26,4 +30,8 @@ class Enemy(pygame.sprite.Sprite):
 
 
 
+    def update(self):
+        self.rect.left -= self.speed
+        if self.rect.left == 0 or self.rect.right == width:
+            self.speed = -self.speed
 
