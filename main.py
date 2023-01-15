@@ -3,17 +3,11 @@ import random
 import Enemy
 import Player
 
-
-
 pygame.init()
-
-
 
 width = 1000
 height = 1000
 white = (255, 255, 255)
-
-
 
 class Blocks(pygame.sprite.Sprite):
     def __init__(self):
@@ -26,27 +20,9 @@ class Blocks(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.top = 650
 
-
-
-
 pygame.init()
-height = 1000
-width = 1000
-green = (0, 255, 0)
-
-
-
-
-width = 1000
-height = 1000
-green = (0, 255, 0)
 
 win = pygame.display.set_mode((width, height))
-
-
-win = pygame.display.set_mode((width, height))
-
-white = (0, 155, 170)
 
 
 FPS = 60
@@ -59,7 +35,6 @@ all_sprites.add(player)
 enemy_sprites = pygame.sprite.Group()
 enemy = Enemy.Enemy()
 enemy_sprites.add(enemy)
-
 
 block = Blocks()
 block_sprites = pygame.sprite.Group()
@@ -75,53 +50,45 @@ block_sprites.add(block3)
 
 background_image = pygame.image.load('background.png')
 background_image1 = pygame.image.load('background.png')
-background_x = 0
-background_x1 = background_image.get_width()
+background_1X = 0
+background_2X = background_image.get_width()
+
+# Противник нас "ударил"
+kick = False
+
+background_speed = 3
+
+terrain = pygame.image.load('terrain.jpg')
+terrain = pygame.transform.scale(terrain, (100, 100))
+
 
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             exit()
 
-
-
-
-    #win.fill(white)
-
-
-    #pygame.draw.rect(win, green, (200, 680, 100, 100))
-    #pygame.draw.rect(win, green, (300, 680, 100, 100))
     pygame.display.update()
 
+    win.blit(background_image, (background_1X, 0))
+    win.blit(background_image1, (background_2X, 0))
 
-
-
-    #pygame.draw.rect(win, green, (100, 700, 100, 100))
-    #pygame.draw.rect(win, green, (200, 700, 100, 100))
-    #pygame.draw.rect(win, green, (500, 700, 100, 100))
-    #pygame.draw.rect(win, green, (600, 700, 100, 100))
-
-
-    win.blit(background_image, (background_x, 0))
+    f1 = pygame.font.Font(None, 36)
+    text1 = f1.render(str(player.health), 1, (180, 0, 0))
+    win.blit(text1, (10, 50))
+    for i in range(0, 10, 1):
+        win.blit(terrain, (i * 100, 900))
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_RIGHT]:
-        background_x -= 5
-        background_x1 -= 5
-    if keys[pygame.K_LEFT]:
-        background_x += 5
-        background_x1 += 5
-    if background_x + background_image.get_width() <= 0:
-        background_x = background_image.get_width()
-    if background_x1 + background_image1.get_width() <= 0:
-        background_x1 = background_image1.get_width()
+        background_1X -= background_speed
+        background_2X -= background_speed
+        for block in block_sprites:
+            block.rect.left -= background_speed
 
-    #pygame.draw.rect(win, green, (100, 650, 100, 100))
-    #pygame.draw.rect(win, green, (200, 650, 100, 100))
-    #pygame.draw.rect(win, green, (500, 650, 100, 100))
-    #pygame.draw.rect(win, green, (600, 650, 100, 100))
-
-
+    if background_1X + background_image.get_width() <= 0:
+        background_1X = background_image.get_width()
+    if background_2X + background_image1.get_width() <= 0:
+        background_2X = background_image1.get_width()
 
     all_sprites.draw(win)
     enemy_sprites.draw(win)
@@ -133,9 +100,12 @@ while True:
     if player.rect.bottom >= enemy.rect.top - 10 and player.rect.bottom <= enemy.rect.top + 10 and player.rect.right >= enemy.rect.left and player.rect.left <= enemy.rect.right:
         enemy_sprites.remove(enemy)
     if len(hits_enemy) != 0:
-        player.health -= 1
+        if hit == False:
+            player.health -= 1
+            hit = True
+    else:
+        hit = False
     enemy_sprites.update()
     block_sprites.update()
     pygame.display.update()
     clock.tick(FPS)
-

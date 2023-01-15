@@ -16,19 +16,15 @@ class Enemy(pygame.sprite.Sprite):
         self.rect.left = width - self.rect.width
         self.speed = 5
 
-
         def update(self):
-            if self.rect.left < WIDTH:
+            if self.rect.left < width:
                 self.rect.x += 5
-            if self.rect.right > WIDTH:
+            if self.rect.right > width:
                 self.rect.left = 0
                 self.rect.x -= 5
 
         self.rect.center=(800,900)
         self.rect.center=(900,850)
-
-
-
 
     def update(self):
         self.rect.left -= self.speed
